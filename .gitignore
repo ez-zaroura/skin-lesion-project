@@ -1,0 +1,22 @@
+# Ignore data files 
+data/
+*.jpg
+*.jpeg
+*.png
+*.csv
+
+# Model weights — too large
+outputs/*.pth
+outputs/*.pt
+
+# Python virtual environments and cache
+venv/
+skin-lesion-env/
+__pycache__/
+*.pyc
+*.pyd
+.ipynb_checkpoints/
+
+
+.DS_Store
+Thumbs.db
