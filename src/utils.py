@@ -1,5 +1,5 @@
 import random
-from anyio import Path
+from pathlib import Path
 import numpy as np
 import torch
 import os
@@ -15,6 +15,8 @@ def seed_everything(seed:int=42):
     os.environ['PYTHONHASHSEED'] = str(seed)
 
 def save_checkpoint(model, fold: int, path, epoch: int, auc: float):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
     torch.save({
         "fold":        fold,
         "epoch":       epoch,
@@ -30,3 +32,9 @@ def load_checkpoint(model, path: Path, device):
     print(f"Loaded checkpoint from fold {checkpoint['fold']}, "
           f"epoch {checkpoint['epoch']}, AUC={checkpoint['auc']:.4f}")
     return model
+
+
+def get_device():
+    return torch.device(
+        "cuda" if torch.cuda.is_available() else "cpu"
+    )
